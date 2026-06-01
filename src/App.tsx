@@ -3,10 +3,9 @@ import { ScannerTool } from "./tools/ScannerTool";
 import { AttestationTool } from "./tools/AttestationTool";
 import { AccessControlTool } from "./tools/AccessControlTool";
 import { InfoFlowTool } from "./tools/InfoFlowTool";
-import { GuideTool } from "./tools/GuideTool";
 import { cn } from "./utils/cn";
 
-type TabId = "guide" | "scanner" | "attestation" | "access" | "flow";
+type TabId = "scanner" | "attestation" | "access" | "flow";
 
 interface Tab {
   id: TabId;
@@ -20,17 +19,6 @@ interface Tab {
 }
 
 const TABS: Tab[] = [
-  {
-    id: "guide",
-    layer: "START",
-    name: "Deploy & Test Guide",
-    shortName: "Guide",
-    icon: "📋",
-    blurb:
-      "Step-by-step instructions to deploy the toolkit for free, and a complete walkthrough to test every feature with expected results.",
-    defends: "All 7 threat categories covered end-to-end",
-    Component: GuideTool,
-  },
   {
     id: "scanner",
     layer: "L-RPE",
@@ -78,7 +66,7 @@ const TABS: Tab[] = [
 ];
 
 export default function App() {
-  const [active, setActive] = useState<TabId>("guide");
+  const [active, setActive] = useState<TabId>("scanner");
   const tab = TABS.find((t) => t.id === active)!;
   const ActiveComponent = tab.Component;
 
@@ -96,7 +84,7 @@ export default function App() {
       <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
         <div className="mx-auto max-w-6xl px-4 py-3 sm:px-8">
           <div className="flex items-center justify-between gap-4">
-            <button onClick={() => navigate("guide")} className="flex items-center gap-2.5">
+            <button onClick={() => navigate("scanner")} className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-indigo-500 text-lg shadow-lg shadow-indigo-500/30">
                 🛡️
               </span>
@@ -118,45 +106,6 @@ export default function App() {
           </div>
         </div>
       </header>
-
-      {/* Intro — only on guide tab */}
-      {active === "guide" && (
-        <section className="border-b border-white/5 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(56,189,248,0.10),transparent)]">
-          <div className="mx-auto max-w-6xl px-4 py-10 sm:px-8 sm:py-14">
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[11px] font-medium text-cyan-200">
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" /> Free · No login · No data
-              leaves your device
-            </div>
-            <h1 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Security tools for{" "}
-              <span className="bg-gradient-to-r from-cyan-300 to-indigo-300 bg-clip-text text-transparent">
-                MCP-based AI agents
-              </span>
-            </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-400 sm:text-base">
-              A working implementation of the four MCPShield defense layers. Scan tool definitions
-              for poisoning, cryptographically attest tools to catch rug pulls, enforce
-              capability-based access control, and track information flow across trust domains.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              <button
-                onClick={() => navigate("scanner")}
-                className="rounded-xl bg-gradient-to-r from-cyan-400 to-indigo-500 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-indigo-500/20 transition hover:brightness-110"
-              >
-                🔍 Start scanning
-              </button>
-              <button
-                onClick={() => {
-                  document.getElementById("guide-content")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="rounded-xl border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
-              >
-                📋 Read the testing guide
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Tabs */}
       <div className="mx-auto max-w-6xl px-4 sm:px-8">
