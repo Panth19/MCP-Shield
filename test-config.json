@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "echo",
+      "args": ["filesystem-server-stub"]
+    },
+    "github": {
+      "command": "echo",
+      "args": ["github-server-stub"]
+    }
+  }
+}
